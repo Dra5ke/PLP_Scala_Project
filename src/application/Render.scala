@@ -120,24 +120,19 @@ class Render {
   def drawRectangle(x0: Int, y0: Int, x1: Int, y1: Int): XYChart.Series[Number, Number] = {
     val pixels = new XYChart.Series[Number, Number]
 
-
-    val verticalLeft = drawLine(x0, y0, x0, y1)
-    verticalLeft.getData().forEach(p => {
+    drawLine(x0, y0, x0, y1).getData().forEach(p => {
       pixels.getData().add(p)
     })
 
-    val verticalRight = drawLine(x1, y0, x1, y1)
-    verticalRight.getData().forEach(p => {
+    drawLine(x1, y0, x1, y1).getData().forEach(p => {
       pixels.getData().add(p)
     })
 
-    val horizontalTop = drawLine(x0, y1, x1, y1)
-    horizontalTop.getData().forEach(p => {
+    drawLine(x0, y1, x1, y1).getData().forEach(p => {
       pixels.getData().add(p)
     })
 
-    val horizontalBottom = drawLine(x0, y0, x1, y0)
-    horizontalBottom.getData().forEach(p => {
+    drawLine(x0, y0, x1, y0).getData().forEach(p => {
       pixels.getData().add(p)
     })
 
@@ -151,6 +146,7 @@ class Render {
     var x1 = boundingBox(2)
     var y1 = boundingBox(3)
 
+    // TRIED TO REMOVE THE POINTS OUT OF BOUNDING BOX BUT HAD PROBLEM WITH XYCHART REFS
     var cleanSeries = new Series[Number, Number]()
 
     series.getData().forEach(p => {
@@ -175,6 +171,7 @@ class Render {
     var tempRectangle = new XYChart.Series[Number, Number]
 
     var count:Int = 0
+
 
     for( x <- data ){
       println(count)
@@ -214,8 +211,6 @@ class Render {
 
     for( x <- data ){
       println(count)
-     // println("x0: "+ boundingBox(0) + "y0: " + (boundingBox(1) + barHeight*count) + "x1: "+(boundingBox(0) + x)  + "y1: "+ (barHeight*(count+1)))
-     // tempRectangle = drawRectangle(boundingBox(0),boundingBox(1) + barHeight*count, boundingBox(0) + x, barHeight*(count+1))
 
       tempRectangle.getData().forEach(p => {
         pixels.getData().add(p)
